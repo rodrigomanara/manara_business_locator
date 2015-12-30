@@ -1,0 +1,20 @@
+{# empty Twig template #}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<div class="clearfix"></div>
+
+<div style="width: 70%;overflow: hidden;">
+    <div class="container">
+        <div class="row">
+            {% block header %}
+                <div class="header">
+                    <h1> Retailer Locator </h1>
+                </div>
+            {% endblock %}  
+
+            {% block body %}
+                {% embed "menu.html.twig" %}
+                {% endembed %} 
+            {% endblock %}{# empty Twig template #}
+        </div>
+    </div>
+</div>

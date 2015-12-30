@@ -1,0 +1,20 @@
+{
+    "name": "rodrigo/manara_business_locator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "rodrigomanara",
+            "email": "rodrigomanara@yahoo.co.uk"
+        }
+    ],
+    "autoload": {
+        "classmap":
+                ["application"]
+
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "twig/twig": "~1.0"
+
+    }
+}

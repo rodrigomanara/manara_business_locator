@@ -1,0 +1,60 @@
+{% extends "template.html.twig" %}
+
+
+{% block body %}
+    {{ parent() }}
+
+
+    <div class="wrap">
+        <h4>  Add new Retailers</h4> 
+        <form action="" method="post">
+            <input name="latitude_id" type="hidden" value="{{ data.latitude_id }}"/>
+            <input name="data" type="hidden" value="{{ data.data }}"/>
+            <input name="latitude" type="hidden" value="{{ data.latitude }}"/>
+            <input name="longitude" type="hidden" value="{{ data.longitude }}"/>
+
+            <div class="col-md-6">
+                <h4> Retailers's Name* / </h4>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Retailer's Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="name" value="{{ data.name }}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Address 1</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="address1" value="{{ data.address1 }}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Address 2</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="address2" value="{{ data.address2 }}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Address 3</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="address3" value="{{ data.address3 }}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Post Code</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="postcode" value="{{ data.postcode }}">
+                </div>
+                <h4> Country / State / County</h4>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">State</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="state" value="{{ data.state }}">
+                </div>  
+                <div class="form-group">
+                    <label for="exampleInputEmail1">County</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="county" value="{{ data.county }}">
+                </div>  
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Country</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="country" value="{{ data.country }}">
+                </div>
+
+                <button class="btn btn-success"> <i class="fa fa-floppy-o"></i> Edit Retailer </button>
+
+            </div>    
+
+        </form>
+    </div>
+{% endblock %}{# empty Twig template #}

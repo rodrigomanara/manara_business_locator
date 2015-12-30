@@ -1,0 +1,25 @@
+{% extends "template.html.twig" %}
+
+
+{% block body %}
+    {{ parent() }}
+
+
+    <div class="wrap">
+        <h4>  Add Google Key</h4>
+        <form action="" method="post">
+            {% if data.key is defined %}
+                <input name="data" type="hidden" value="{{ data.data }}"/>
+                <input name="settings_id" type="hidden" value="{{ data.settings_id }}"/>
+            {% endif %}    
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Google Api KEY</label>
+                <input name="google_key" class="form-control" type="text" value="{{ data.key }}"/>
+            </div>  
+            <button class="btn btn-success"> <i class="fa fa-floppy-o"></i> Add Key </button>
+
+
+        </form>
+    </div>
+{% endblock %}{# empty Twig template #}

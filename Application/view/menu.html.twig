@@ -1,0 +1,13 @@
+<div class="row">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <ul class="nav nav-tabs">
+                {% for item in menu %}
+                    <li>
+                        <a href="{{ item.url }}"> <i class="{{ item.icon }}"></i> {{ item.name }}</a>
+                    </li>
+                {% endfor  %}
+            </ul>
+        </div>
+    </nav>
+</div>

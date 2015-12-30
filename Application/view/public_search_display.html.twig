@@ -1,0 +1,63 @@
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ item.key }}&sensor=false&v=3.15"></script>
+
+<form method="post" action="" autocomplete="false">
+
+    <input name='postcode' type="text" placeholder="Place the Postcode"  value="{{ post.postcode }}"  role='search'/>
+
+    <select name="distance">
+        {% for i in range(data.min, data.max)%}
+
+            {% if i == post.distance %}
+                <option selected value="{{ i }}">{{ i ~ " "~ data.type }}</option>
+            {% else %}
+                <option  value="{{ i }}">{{ i ~ " "~ data.type }}</option>
+            {% endif %}
+        {% endfor %}    
+    </select>
+    <button>Search</button>
+</form>
+<style>
+    #map_canvas{min-height:400px;}
+</style>
+<div class="row">
+    <h4>Map</h4>
+    <div class="col-md-8">
+        <div class="col-md-11" id="map_canvas" ></div>
+    </div>
+</div>
+<hr/>
+<div>
+    <h4>List of Retailers</h4>
+</div>
+<table class="table table-striped">
+    <tr>
+        <th>Retailer</th>
+        <th>Postcode</th>
+        <th>County</th>
+        <th>Country</th>
+        <th>Distance</th>
+    </tr>
+    {% for value in retailers %}
+        <tr>
+            <td>{{ value.name }}</td>
+            <td>{{ value.postcode }}</td>
+            <td>{{ value.county }}</td>
+            <td>{{ value.country }}</td>
+            <td>{{ value.distance|round(2, 'floor') ~ " "~ data.type  }}</td>
+             
+        </tr>
+    {% endfor %}    
+</table>    
+<script>
+    $('#map_canvas').gmap();
+    {% for i in retailers %}
+        $('#map_canvas').gmap('addMarker', {
+            bounds: true,
+            position: new google.maps.LatLng('{{ i.latitude }}', '{{ i.longitude }}')
+        })
+        
+    {% endfor %}
+    
+    $('#map_canvas').gmap('option', 'zoom', 2);
+</script>
