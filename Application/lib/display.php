@@ -45,8 +45,8 @@ class display extends Admin {
             'data' => $this->getConfig(),
             'item' => $key,
             'post' => array(
-                'postcode' => isset($_POST['postcode']) ? $_POST['postcode'] : '',
-                'distance' => isset($_POST['distance']) ? $_POST['distance'] : '',
+                'postcode' => $this->post('postcode'),
+                'distance' => $this->post('distance') ,
                 ),
             'retailers' => $this->setReturnListofRetailers()
         ));
@@ -54,16 +54,16 @@ class display extends Admin {
 
     private function setReturnListofRetailers() {
 
-        $data = $this->getLatitude(isset($_POST['postcode']) ? $_POST['postcode'] : null);
+        $data = $this->getLatitude($this->post('postcode'));
  
-        if (!isset($_POST['postcode']) && $_SERVER['REQUEST_METHOD'] !== 'POST') {
+        if (!is_null($this->post('postcode'))) {
             return $this->db_custom->__selects('latitude_manara_business_locator');
         } else {
              
             return $this->db_custom->getListofRetailers(array(
                 'latitude' => $data['latitude'],
                 'longitude' => $data['longitude'],
-                'distance' => $_POST['distance']
+                'distance' => $this->post('distance')
                     )
             );
         }
@@ -104,7 +104,8 @@ class display extends Admin {
      * @return \Manara\Business\locator\Application\lib\display
      */
     private function setType() {
-        $this->type = isset($this->attribute['type']) ? $this->attribute['type'] : $this->type;
+        $this->type = 
+                isset($this->attribute['type']) ? sanitize_text_field($this->attribute['type']) : $this->type;
         return $this;
     }
 
@@ -113,12 +114,14 @@ class display extends Admin {
      * @return \Manara\Business\locator\Application\lib\display
      */
     private function setMin() {
-        $this->min = isset($this->attribute['min']) ? $this->attribute['min'] : $this->min;
+        $this->min = isset($this->attribute['min']) 
+                ? sanitize_text_field($this->attribute['min']) : $this->min;
         return $this;
     }
 
     private function setMax() {
-        $this->max = isset($this->attribute['max']) ? $this->attribute['max'] : $this->max;
+        $this->max = isset($this->attribute['max']) 
+                ? sanitize_text_field($this->attribute['max']) : $this->max;
         return $this;
     }
 

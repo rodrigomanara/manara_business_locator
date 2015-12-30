@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Manara\\Business\\locator\\Application\\Helpers\\Sanitizer\\__Global' => $baseDir . '/Application/helpers/Sanitizer/Global.php',
     'Manara\\Business\\locator\\Application\\lib\\Admin' => $baseDir . '/Application/lib/admin.php',
     'Manara\\Business\\locator\\Application\\lib\\CustomQuery' => $baseDir . '/Application/lib/custom_query.php',
     'Manara\\Business\\locator\\Application\\lib\\DBIntstall' => $baseDir . '/Application/lib/db_install.php',
