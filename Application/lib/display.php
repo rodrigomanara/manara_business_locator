@@ -13,13 +13,12 @@ use Manara\Business\locator\Application\lib\CustomQuery;
 class display extends Admin {
 
     private $db_custom;
-    private $get;
 
     public function __construct() {
         parent::__construct();
 
         $this->db_custom = new CustomQuery();
-        $this->get = $_REQUEST;
+        
     }
 
     private $attribute;
@@ -41,6 +40,7 @@ class display extends Admin {
     public function getTemplate() {
         $key = $this->db_custom->__select('setting_manara_business_locator');
         
+        
         $this->view->render('public_search_display.html.twig', array(
             'data' => $this->getConfig(),
             'item' => $key,
@@ -55,8 +55,8 @@ class display extends Admin {
     private function setReturnListofRetailers() {
 
         $data = $this->getLatitude($this->post('postcode'));
- 
-        if (!is_null($this->post('postcode'))) {
+        
+        if (is_null($data['postcode'])) {
             return $this->db_custom->__selects('latitude_manara_business_locator');
         } else {
              
