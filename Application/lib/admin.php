@@ -13,7 +13,7 @@ class Admin extends GlobalsRequest {
 
     public function __construct() {
         parent::__construct();
-        
+
         $this->view = new loadFile();
         $this->model = new Model();
     }
@@ -60,35 +60,43 @@ class Admin extends GlobalsRequest {
 
     public function edit() {
 
-        $data = $this->model->__select('latitude_manara_business_locator'
-                , array('latitude_id' =>
-            !is_null($this->get('id')) ? $this->get('id') :
-                    !is_null($this->post('latitude_id')) ? $this->post('latitude_id') : 0));
+        if (!is_null($this->get('id'))) {
+            $id = array('latitude_id' => $this->get('id'));
+        } elseif (!is_null($this->post('latitude_id'))) {
+            $id =  array('latitude_id' => $this->post('latitude_id'));
+        } else {
+            $id = array('latitude_id' => 0);
+        }
+
+
+        $data = $this->model->__select('latitude_manara_business_locator' ,$id);
+
 
         if (!is_null($this->post('postcode')) && $data->postcode != $this->post('postcode')) {
             $search = $this->getLatitude($this->post('postcode'));
 
-            $data->longitude = $search['longitude'];  $this->setPost('longitude' , $search['longitude']) ;
-            $data->latitude = $search['latitude'];    $this->setPost('latitude',$search['latitude']);
-            $data->country = $search['country'];      $this->setPost('country' , $search['country']);
-            $data->county = $search['county'];        $this->setPost('county' , $search['county']);
-            $data->postcode = $search['postcode'];    $this->setPost('postcode', $search['postcode']);
-            $data->data = $search['date'];            $this->setPost('data' , $search['date']);
+            $data->longitude = $search['longitude'];
+            $this->setPost('longitude', $search['longitude']);
+            $data->latitude = $search['latitude'];
+            $this->setPost('latitude', $search['latitude']);
+            $data->country = $search['country'];
+            $this->setPost('country', $search['country']);
+            $data->county = $search['county'];
+            $this->setPost('county', $search['county']);
+            $data->postcode = $search['postcode'];
+            $this->setPost('postcode', $search['postcode']);
+            $data->data = $search['date'];
+            $this->setPost('data', $search['date']);
 
             $this->model->__save('latitude_manara_business_locator', $this->post());
 
-            $data = $this->model->__select('latitude_manara_business_locator'
-                    , array('latitude_id' =>
-                !is_null($this->get('id')) ? $this->get('id') :
-                        (!is_null($this->post('latitude_id')) ? $this->post('latitude_id') : 0 )));
-
-            } elseif (!is_null($this->post('postcode'))) {
+            $data = $this->model->__select('latitude_manara_business_locator' , $id);
+        
+            
+        } elseif (!is_null($this->post('postcode'))) {
+        
             $this->model->__save('latitude_manara_business_locator', $this->post());
-
-            $data = $this->model->__select('latitude_manara_business_locator'
-                    , array('latitude_id' =>
-                !is_null($this->get('id')) ? $this->get('id') :
-                        (!is_null($this->post('latitude_id')) ? $this->post('latitude_id') : 0 )));
+            $data = $this->model->__select('latitude_manara_business_locator' , $id);
         }
 
         $this->view->render('edit_retailer.html.twig'
@@ -98,16 +106,18 @@ class Admin extends GlobalsRequest {
 
     public function delete() {
 
-        $data = $this->model->__select('latitude_manara_business_locator'
-                , array('latitude_id' =>
-            !is_null($this->get('id')) ? $this->get('id') :
-                    (!is_null($this->post('latitude_id')) ? $this->post('latitude_id') : 0 )));
-
+        if (!is_null($this->get('id'))) {
+            $id = array('latitude_id' => $this->get('id'));
+        } elseif (!is_null($this->post('latitude_id'))) {
+            $id = array('latitude_id' => $this->post('latitude_id'));
+        } else {
+            $id = array('latitude_id' => 0);
+        }
+        
+        $data = $this->model->__select('latitude_manara_business_locator' , $id);
+        
         if (!is_null($this->post('latitude_id'))) {
-            $this->model->__delete('latitude_manara_business_locator'
-                    , array('latitude_id' =>
-                !is_null($this->post('latitude_id')) ? $this->post('latitude_id') : 0));
-
+            $this->model->__delete('latitude_manara_business_locator' , $id);
             $this->redirect('_list');
         }
 
@@ -141,7 +151,7 @@ class Admin extends GlobalsRequest {
     protected function getLatitude($post_code) {
         $latitude = new Latitude();
 
-        
+
         $get_key = $this->model->__select('setting_manara_business_locator');
         return $latitude->googleLatitude($post_code, isset($get_key->key) ? $get_key->key : null );
     }

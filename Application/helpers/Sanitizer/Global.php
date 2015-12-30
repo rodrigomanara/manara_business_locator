@@ -27,6 +27,7 @@ class __Global {
                 $this->get[sanitize_key($KEY)] = sanitize_text_field($value);
             }
         }
+        
         if (isset($_REQUEST)) {
             foreach ($_REQUEST as $KEY => $value) {
                 $this->request[sanitize_key($KEY)] = sanitize_text_field($value);
